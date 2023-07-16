@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.3.1
 
   cupertino_icons: ^1.0.2
   dio: ^5.2.1+1
@@ -22,10 +23,14 @@ dependencies:
   cached_network_image: ^3.2.3
   google_fonts: ^5.1.0
   auto_route: ^7.7.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   flutter_lints: ^2.0.0
   build_runner: ^2.4.6
@@ -37,3 +42,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true

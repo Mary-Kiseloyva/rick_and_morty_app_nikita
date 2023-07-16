@@ -1,0 +1,17 @@
+{
+ "informations" : "Информация",
+ "gender": "Гендер",
+ "status": "Статус",
+ "specie": "Вид",
+ "origin": "Происхождение",
+ "type": "Тип",
+ "missing": "Отсутствует",
+ "location": "Местонахождение",
+ "episodes": "Эпизоды",
+  "url": "Ссылка",
+  "airDate": "Дата выхода",
+  "characters": "Персонажи",
+  "firstSeenIn": "Впервые представлен в:",
+  "lastKnownLocation": "Последняя известная локация:",
+  "dimension": "Измерение"
+}

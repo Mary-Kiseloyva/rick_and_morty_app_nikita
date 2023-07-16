@@ -1,0 +1,17 @@
+{
+ "informations" : "Informations",
+ "gender": "Gender",
+ "status": "Status",
+ "specie": "Specie",
+ "origin": "Origin",
+ "type": "Type",
+ "missing": "Missing",
+ "location": "Location",
+ "episodes": "Episodes",
+ "url": "Url",
+ "airDate": "AirDate",
+ "characters": "Characters",
+ "firstSeenIn": "First seen in:",
+ "lastKnownLocation": "Last known location:",
+ "dimension": "Dimension"
+}

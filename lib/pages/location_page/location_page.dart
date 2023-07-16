@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rick_and_morty/data/service/location_client.dart';
 import 'package:rick_and_morty/model/location.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class LocationPage extends StatefulWidget {
@@ -74,24 +75,24 @@ class _LocationPageState extends State<LocationPage> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          'Informations',
+                          AppLocalizations.of(context)!.informations,
                           style: theme.textTheme.headlineSmall?.copyWith(
                             color: theme.colorScheme.onSurface,
                           ),
                         ),
                       ),
                       ListTile(
-                        title: const Text('Url'),
+                        title: Text(AppLocalizations.of(context)!.url),
                         subtitle: Text(location.url),
                       ),
                       const Divider(),
                       ListTile(
-                        title: const Text('Type'),
+                        title: Text(AppLocalizations.of(context)!.type),
                         subtitle: Text(location.type),
                       ),
                       const Divider(),
                       ListTile(
-                        title: const Text('Dimension'),
+                        title: Text(AppLocalizations.of(context)!.dimension),
                         subtitle: Text(location.dimension),
                       ),
                       const Divider(),

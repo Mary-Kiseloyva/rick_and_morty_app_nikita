@@ -10,6 +10,7 @@ import 'package:rick_and_morty/model/episode.dart';
 import 'package:rick_and_morty/navigation/app_router.dart';
 import 'package:rick_and_morty/pages/episodes_page/episodes_page.dart';
 import 'package:rick_and_morty/util/path_id.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class CharacterPage extends StatefulWidget {
@@ -30,6 +31,7 @@ class _CharacterPageState extends State<CharacterPage> {
   CharacterClient get characterClient => context.read();
 
   EpisodeClient get episodeClient => context.read();
+
 
   Future<Character> _loadCharacter() async {
     try {
@@ -66,6 +68,7 @@ class _CharacterPageState extends State<CharacterPage> {
         builder: (context, snapshot) {
           final character = snapshot.data;
           if (character == null) {
+
             return const Center(
               child: CupertinoActivityIndicator(),
             );
@@ -109,9 +112,12 @@ class _CharacterPageState extends State<CharacterPage> {
                           ],
                           tileMode: TileMode.mirror,
                         ).createShader(bounds),
-                        child: CachedNetworkImage(
-                          fit: BoxFit.fill,
-                          imageUrl: character.image,
+                        child: Hero(
+                          tag: widget.id,
+                          child: CachedNetworkImage(
+                            fit: BoxFit.fill,
+                            imageUrl: character.image,
+                          ),
                         ),
                       ),
                     ),
@@ -123,66 +129,58 @@ class _CharacterPageState extends State<CharacterPage> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          'Informations',
+                          AppLocalizations.of(context)!.informations,
                           style: theme.textTheme.headlineSmall?.copyWith(
                             color: theme.colorScheme.onSurface,
                           ),
                         ),
                       ),
                       ListTile(
-                        title: const Text('Gender'),
+                        title: Text(AppLocalizations.of(context)!.gender),
                         subtitle: Text(character.gender),
                       ),
                       const Divider(),
                       ListTile(
-                        title: const Text('Status'),
+                        title: Text(AppLocalizations.of(context)!.status),
                         subtitle: Text(character.status),
                       ),
                       const Divider(),
                       ListTile(
-                        title: const Text('Specie'),
+                        title: Text(AppLocalizations.of(context)!.specie),
                         subtitle: Text(character.species),
                       ),
                       const Divider(),
                       ListTile(
-                        title: const Text('Origin'),
+                        title: Text(AppLocalizations.of(context)!.origin),
                         subtitle: Text(character.origin.name),
                         trailing: const Icon(Icons.navigate_next),
                         onTap: () {
                           context.router.navigate(
-                            LocationTab(
-                                children: [
-                                  LocationRoute(
-                                    id: character.origin.url.id,
-                                  ),
-                                ]
+                            LocationRoute(
+                              id: character.origin.url.id,
                             ),
                           );
                         },
                       ),
                       const Divider(),
                       ListTile(
-                        title: const Text('Type'),
+                        title: Text(AppLocalizations.of(context)!.type),
                         subtitle: Text(
                           character.type.isNotEmpty
                               ? character.type
-                              : 'Missing',
+                              : AppLocalizations.of(context)!.missing,
                         ),
                       ),
                       const Divider(),
                       ListTile(
-                        title: const Text('Location'),
-                        subtitle: Text(character.origin.name),
+                        title: Text(AppLocalizations.of(context)!.location),
+                        subtitle: Text(character.location.name),
                         trailing: const Icon(Icons.navigate_next),
                         onTap: () {
                            context.router.navigate(
-                             LocationTab(
-                              children: [
-                                LocationRoute(
-                                  id: character.origin.url.id,
-                                ),
-                              ]
-                            ),
+                             LocationRoute(
+                               id: character.origin.url.id,
+                             ),
                           );
                         },
                       ),
@@ -191,8 +189,7 @@ class _CharacterPageState extends State<CharacterPage> {
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
-                        child: Text(
-                          'Episodes',
+                        child: Text(AppLocalizations.of(context)!.episodes,
                           style: theme.textTheme.headlineSmall?.copyWith(
                             color: theme.colorScheme.onSurface,
                           ),
@@ -221,7 +218,16 @@ class _CharacterPageState extends State<CharacterPage> {
                           ),
                           itemBuilder: (context, index) {
                             final episode = episodes[index];
-                            return EpisodeCard(episode: episode);
+                            return GestureDetector(
+                                onTap: () {
+                                  context.router.navigate(
+                                      EpisodeRoute(
+                                        id: episode.id,
+                                        preview: episode,
+                                      )
+                                  );
+                                },
+                                child: EpisodeCard(episode: episode));
                           },
                           itemCount: episodes.length,
                         ),

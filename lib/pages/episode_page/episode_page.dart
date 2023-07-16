@@ -6,8 +6,10 @@ import 'package:rick_and_morty/data/service/character_client.dart';
 import 'package:rick_and_morty/data/service/episode_client.dart';
 import 'package:rick_and_morty/model/character.dart';
 import 'package:rick_and_morty/model/episode.dart';
+import 'package:rick_and_morty/navigation/app_router.dart';
 import 'package:rick_and_morty/pages/characters_page/widgets/character_card.dart';
 import 'package:rick_and_morty/util/path_id.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class EpisodePage extends StatefulWidget {
@@ -17,7 +19,6 @@ class EpisodePage extends StatefulWidget {
     required this.id,
   });
 
-
   final Episode? preview;
   final int id;
 
@@ -26,10 +27,9 @@ class EpisodePage extends StatefulWidget {
 }
 
 class _EpisodePageState extends State<EpisodePage> {
+  EpisodeClient get episodeClient => context.read();
 
-
-   EpisodeClient get episodeClient => context.read();
-   CharacterClient get characterClient => context.read();
+  CharacterClient get characterClient => context.read();
 
   Future<List<Character>> _loadCharacter(List<String> characters) async {
     final ids = characters.map((ch) => ch.id).join(',');
@@ -93,19 +93,19 @@ class _EpisodePageState extends State<EpisodePage> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          'Informations',
+                          AppLocalizations.of(context)!.informations,
                           style: theme.textTheme.headlineSmall?.copyWith(
                             color: theme.colorScheme.onSurface,
                           ),
                         ),
                       ),
                       ListTile(
-                        title: const Text('Url'),
+                        title: Text(AppLocalizations.of(context)!.url),
                         subtitle: Text(episode.url),
                       ),
                       const Divider(),
                       ListTile(
-                        title: const Text('AirDate'),
+                        title: Text(AppLocalizations.of(context)!.airDate),
                         subtitle: Text(episode.airDate),
                       ),
                       const Divider(),
@@ -114,7 +114,7 @@ class _EpisodePageState extends State<EpisodePage> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          'Characters',
+                          AppLocalizations.of(context)!.characters,
                           style: theme.textTheme.headlineSmall?.copyWith(
                             color: theme.colorScheme.onSurface,
                           ),
@@ -138,8 +138,14 @@ class _EpisodePageState extends State<EpisodePage> {
                         sliver: SliverList.separated(
                           itemBuilder: (context, index) {
                             final character = characters[index];
-                            return CharacterCard(
-                              character: character,
+                            return GestureDetector(
+                              onTap: () {
+                                context.router.navigate(CharacterRoute(
+                                    id: character.id, preview: character));
+                              },
+                              child: CharacterCard(
+                                character: character,
+                              ),
                             );
                           },
                           separatorBuilder: (_, __) => const SizedBox(

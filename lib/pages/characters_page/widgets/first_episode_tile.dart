@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/model/character.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FirstEpisodeTile extends StatelessWidget {
   const FirstEpisodeTile({
@@ -17,7 +18,7 @@ class FirstEpisodeTile extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'First seen in:',
+          AppLocalizations.of(context)!.firstSeenIn,
           style: theme.textTheme.bodyLarge?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
             fontWeight: FontWeight.w600,

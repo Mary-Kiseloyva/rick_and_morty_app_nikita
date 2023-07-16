@@ -30,9 +30,12 @@ class CharacterCard extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: CachedNetworkImage(
-                  imageUrl: character.image,
-                  fit: BoxFit.fitWidth,
+                child: Hero(
+                  tag: character.id,
+                  child: CachedNetworkImage(
+                    imageUrl: character.image,
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
               Expanded(
